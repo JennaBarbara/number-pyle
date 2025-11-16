@@ -3,7 +3,9 @@ import Title from "./components/title.tsx"
 import Square from './components/square.tsx';
 import Board from './components/board.tsx';
 import Button from './components/button.tsx';
+import Roll from './components/roll.tsx';
 import { useState, useCallback, useEffect } from 'react';
+import Score from './components/score.tsx';
 
 
 export interface SquareStatus {
@@ -210,22 +212,15 @@ export default function App() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-linear-to-t from-neutral-400 to-stone-400">
-      <div className="flex flex-col min-h-screen w-full max-w-4xl content-start py-10 px-10 bg-stone-50/50 gap-x-2 gap-y-10">
+      <div className="flex flex-col min-h-screen w-full max-w-xl content-start py-10 px-10 bg-stone-50/50 gap-x-2 gap-y-4">
         <Title />
-        {isGameOver && <div className='flex flex-row p-x-5 justify-center gap-4 text-center'>
+        <div className='flex flex-row p-x-5 justify-center gap-8'>
+          <Score score={score} />
+          <Roll currentDie={currentDie} />
+        </div>
+        {isGameOver && <div className='flex flex-row p-x-5 justify-center gap-2 text-center'>
           <p className='text-5xl'>GAME OVER</p>
         </div>}
-        <div className='flex flex-row p-x-5 justify-center gap-4'>
-          <div className='flex flex-col text-center'>
-            <p className='text-xl'>Score</p>
-            <p className='text-lg'>{score}</p>
-          </div>
-          <div className='flex flex-col text-center'>
-            <p className='text-xl'>Current Roll</p>
-            <p className='text-lg'>{currentDie}</p>
-          </div>
-
-        </div>
         <Board isGameOver={isGameOver}>
             {squareStatuses.map((squareStatusRow, rowIndex) =>(
                squareStatusRow.map((squareStatus, columnIndex) => (
