@@ -233,6 +233,11 @@ export default function App() {
             )))}
         </Board>
         <Button onClick={() => resetGame()}>Reset Game</Button>
+        <div className='bg-stone-50 p-5'>
+            <p>Credits: The rules and mechanics of Number Pyle were invented by </p>
+            <p>This implementation is brought to you by <a className="underline" href="https://github.com/JennaBarbara/">JennaBarbara</a></p>
+
+        </div>
 
       </div>
     </div>
@@ -252,7 +257,7 @@ function getDefaultStatus():  Array<Array<SquareStatus>> {
       defaultRow.push(
         {
           scored: false,
-          selectable: j == 0 || j== 8  ? true : false
+          selectable: j == 0 && i == 4 || j== 8 && i == 4 ? true : false
         }
       )
     }
