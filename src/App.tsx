@@ -17,10 +17,10 @@ export interface SquareStatus {
 
 export default function App() {
 
- const [squareStatuses, setSquareStatuses ] = useState(getDefaultStatus)
+ const [squareStatuses, setSquareStatuses ] = useState<Array<Array<SquareStatus>>>(getDefaultStatus)
  const [score, setScore] = useState(0)
 
- const [isDefaultState, setIsDefaultState] = useState(true)
+
  const [currentDie, setCurrentDie] = useState(rollDie)
  const [isGameOver, setIsGameOver] = useState(false)
 
@@ -46,35 +46,174 @@ export default function App() {
 
   const selectSquare = useCallback(
     (rowIndex: number, columnIndex:number) => {
-      console.log(`${rowIndex}-${columnIndex}`)
-      const newSquareStatuses  = Object.assign({}, squareStatuses); 
-      //make all unselectable
-      newSquareStatuses.forEach((squareStatusRow) => {
-        squareStatusRow.forEach((squareStatus) => squareStatus.selectable = false)
-      })
+     // console.log(`${rowIndex}-${columnIndex}`)
+      //const newSquareStatuses  = Object.assign({}, squareStatuses); 
+
+      const newSquareStatuses= squareStatuses.map(function(row) {
+         return row.slice();
+      });
+     // console.log(JSON.stringify(newSquareStatuses))
+      for (let i = 0; i < 9; i++) {
+        for (let j=0; j<9; j++) {
+          //console.log(`i: ${i}, j: ${j}`)
+          newSquareStatuses[i][j].selectable=false
+        }
+      }
 
       //updateSquare
       newSquareStatuses[rowIndex][columnIndex].number = currentDie
       
       //check and set for scored
-          //
-      
+          //check left on row
+          for(let i = columnIndex+1; i < 9 ; i++){
+            if(newSquareStatuses[rowIndex][i].number !== undefined){
+              if(newSquareStatuses[rowIndex][i].number !== currentDie){
+                break
+              }
+              else if(newSquareStatuses[rowIndex][i].number === currentDie) {
+                for(let j = columnIndex+1; j < i ; j++){
+                  newSquareStatuses[rowIndex][j].scored = true
+                }
+                break
+              }
+            }
+          }
 
+
+          //check right on row
+            for(let i = columnIndex-1; i > -1  ; i--){
+            if(newSquareStatuses[rowIndex][i].number !== undefined){
+              if(newSquareStatuses[rowIndex][i].number !== currentDie){
+                break
+              }
+              else if(newSquareStatuses[rowIndex][i].number === currentDie) {
+                for(let j = columnIndex-1; j > i ; j--){
+                  newSquareStatuses[rowIndex][j].scored = true
+                }
+                break
+              }
+            }
+          }
+
+          //check up on column
+
+          for(let i = rowIndex-1; i > -1  ; i--){
+            if(newSquareStatuses[i][columnIndex].number !== undefined){
+              if(newSquareStatuses[i][columnIndex].number !== currentDie){
+                break
+              }
+              else if(newSquareStatuses[i][columnIndex].number === currentDie) {
+                for(let j = rowIndex-1; j > i ; j--){
+                  newSquareStatuses[j][columnIndex].scored = true
+                }
+                break
+              }
+            }
+          }
+          
+          //check down on column
+
+          for(let i = rowIndex+1; i < 9  ; i++){
+            if(newSquareStatuses[i][columnIndex].number !== undefined){
+              if(newSquareStatuses[i][columnIndex].number !== currentDie){
+                break
+              }
+              else if(newSquareStatuses[i][columnIndex].number === currentDie) {
+                for(let j = rowIndex+1; j < i ; j++){
+                  newSquareStatuses[j][columnIndex].scored = true
+                }
+                break
+              }
+            }
+          }
+      
       //set new selectable
+      const newRoll = rollDie()
+      //even
+      if(newRoll % 2 == 0) {
+        //up
+        if ( rowIndex-1 > -1 &&
+          newSquareStatuses[rowIndex-1][columnIndex] !==undefined && 
+          newSquareStatuses[rowIndex-1][columnIndex].number === undefined && 
+         !newSquareStatuses[rowIndex-1][columnIndex].scored) {
+          newSquareStatuses[rowIndex-1][columnIndex].selectable = true
+        }
+        //down
+
+      if ( rowIndex+1 <9 &&
+          newSquareStatuses[rowIndex+1][columnIndex] !==undefined && 
+          newSquareStatuses[rowIndex+1][columnIndex].number === undefined && 
+         !newSquareStatuses[rowIndex+1][columnIndex].scored) {
+          newSquareStatuses[rowIndex+1][columnIndex].selectable = true
+        }
+
+        //left
+        if ( columnIndex-1 > -1 &&
+          newSquareStatuses[rowIndex][columnIndex-1] !==undefined && 
+          newSquareStatuses[rowIndex][columnIndex-1].number === undefined && 
+         !newSquareStatuses[rowIndex][columnIndex-1].scored) {
+          newSquareStatuses[rowIndex][columnIndex-1].selectable = true
+        }
+
+        //right
+      if ( columnIndex+1 <9 &&
+          newSquareStatuses[rowIndex][columnIndex+1] !==undefined && 
+          newSquareStatuses[rowIndex][columnIndex+1].number === undefined && 
+         !newSquareStatuses[rowIndex][columnIndex+1].scored) {
+          newSquareStatuses[rowIndex][columnIndex+1].selectable = true
+        }
+      }
+      //odd
+      else {
+        //up - left
+        if (
+          rowIndex-1 > -1 && columnIndex-1 > -1 &&
+          newSquareStatuses[rowIndex-1][columnIndex-1] !==undefined && 
+          newSquareStatuses[rowIndex-1][columnIndex-1].number === undefined && 
+         !newSquareStatuses[rowIndex-1][columnIndex-1].scored) {
+          newSquareStatuses[rowIndex-1][columnIndex-1].selectable = true
+        }
+        //up-right
+        if (rowIndex-1 > -1 && columnIndex+1 < 9 &&
+          newSquareStatuses[rowIndex-1][columnIndex+1] !==undefined && 
+          newSquareStatuses[rowIndex-1][columnIndex+1].number === undefined && 
+         !newSquareStatuses[rowIndex-1][columnIndex+1].scored) {
+          newSquareStatuses[rowIndex-1][columnIndex+1].selectable = true
+        }
+        //down left
+        if (
+          rowIndex+1 < 9 && columnIndex-1 > -1 &&
+          newSquareStatuses[rowIndex+1][columnIndex-1] !==undefined && 
+          newSquareStatuses[rowIndex+1][columnIndex-1].number === undefined && 
+         !newSquareStatuses[rowIndex+1][columnIndex-1].scored) {
+          newSquareStatuses[rowIndex+1][columnIndex-1].selectable = true
+        }
+
+        //down right
+        if (
+          rowIndex+1 < 9 && columnIndex+1 < 9 &&
+          newSquareStatuses[rowIndex+1][columnIndex+1] !==undefined && 
+          newSquareStatuses[rowIndex+1][columnIndex+1].number === undefined && 
+         !newSquareStatuses[rowIndex+1][columnIndex+1].scored) {
+          newSquareStatuses[rowIndex+1][columnIndex+1].selectable = true
+        }
+
+      }
 
       //set new status
       setSquareStatuses(newSquareStatuses)
       //roll new die
-      setCurrentDie(rollDie)
+      setCurrentDie(newRoll )
 
     },
     [squareStatuses, setSquareStatuses, currentDie, setCurrentDie],
   )
-const resetGame = useCallback(() => {
+  const resetGame = useCallback(() => {
       setSquareStatuses(getDefaultStatus())
-      setIsDefaultState(true)
+      setCurrentDie(rollDie)
+    
     },
-    [ setSquareStatuses, setIsDefaultState],
+    [ setSquareStatuses, setCurrentDie],
   )
 
   return (
@@ -98,17 +237,15 @@ const resetGame = useCallback(() => {
         <Board>
             {squareStatuses.map((squareStatusRow, rowIndex) =>(
                squareStatusRow.map((squareStatus, columnIndex) => (
-
                  <Square 
                   squareStatus={squareStatus} 
                   index={`${rowIndex}-${columnIndex}`} 
                   key={`square-${rowIndex}-${columnIndex}`} 
                   onClick={()=>selectSquare(rowIndex, columnIndex)} />
-               )
-              
+               )       
             )))}
         </Board>
-        <Button onClick={() => resetGame} />
+        <Button onClick={() => resetGame()}>Reset Game</Button>
 
       </div>
     </div>
@@ -121,7 +258,7 @@ function rollDie(): number {
 }
 
 function getDefaultStatus():  Array<Array<SquareStatus>> {
-  const defaultStatus: Array<Array<SquareStatus>> = [[]]
+  const defaultStatus: Array<Array<SquareStatus>> = []
   for (let i = 0; i < 9; i++) {
     const defaultRow: Array<SquareStatus> = []
     for (let j=0; j<9; j++) {
@@ -134,6 +271,7 @@ function getDefaultStatus():  Array<Array<SquareStatus>> {
     }
     defaultStatus.push(defaultRow)
   }
+
   return defaultStatus  
 }
 

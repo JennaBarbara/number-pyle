@@ -1,13 +1,15 @@
 
+import type { ReactNode } from "react"
 
 interface ButtonProps {
+  children?: ReactNode, 
   className?: string,
   onClick?: () => void, 
   disabled?: boolean,
   size?: 'sm'| 'md' | 'lg'
 } 
 
-export default function Button( {className, onClick, disabled, size='md'}: ButtonProps){
+export default function Button({children, className, onClick, disabled, size='md'}: ButtonProps){
 
   const padding = size === 'sm' ? 'p-1' : size == 'md' ? 'p-4' : 'p-6'
 
@@ -17,6 +19,7 @@ export default function Button( {className, onClick, disabled, size='md'}: Butto
           onClick={onClick}
           disabled={disabled}
        >
+        {children}
        </button>
     )
 
