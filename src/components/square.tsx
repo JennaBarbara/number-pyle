@@ -12,11 +12,10 @@ const variant = squareStatus.selectable ? 'bg-white cursor-pointer': squareStatu
 
 return (
     <div 
-        className={` ${variant} rounded-md size-8 md:size-16`}
+        className={` ${variant} flex flex-col rounded-md  justify-center gap-4 text-center text-lg size-8 md:size-16 md:text-2xl`}
         onClick={squareStatus.selectable ? onClick : undefined}
-
         >
-        <p className="text-lg">{squareStatus.number}</p>
+          {squareStatus.number}
     </div>
 )
 

@@ -24,8 +24,6 @@ export default function App() {
  const [currentDie, setCurrentDie] = useState(rollDie)
  const [isGameOver, setIsGameOver] = useState(false)
 
-
-
   //calculate score
   useEffect(() => {
     let score = 0
@@ -46,16 +44,13 @@ export default function App() {
 
   const selectSquare = useCallback(
     (rowIndex: number, columnIndex:number) => {
-     // console.log(`${rowIndex}-${columnIndex}`)
-      //const newSquareStatuses  = Object.assign({}, squareStatuses); 
 
       const newSquareStatuses= squareStatuses.map(function(row) {
          return row.slice();
       });
-     // console.log(JSON.stringify(newSquareStatuses))
+
       for (let i = 0; i < 9; i++) {
         for (let j=0; j<9; j++) {
-          //console.log(`i: ${i}, j: ${j}`)
           newSquareStatuses[i][j].selectable=false
         }
       }
@@ -79,7 +74,6 @@ export default function App() {
             }
           }
 
-
           //check right on row
             for(let i = columnIndex-1; i > -1  ; i--){
             if(newSquareStatuses[rowIndex][i].number !== undefined){
@@ -96,7 +90,6 @@ export default function App() {
           }
 
           //check up on column
-
           for(let i = rowIndex-1; i > -1  ; i--){
             if(newSquareStatuses[i][columnIndex].number !== undefined){
               if(newSquareStatuses[i][columnIndex].number !== currentDie){
@@ -112,7 +105,6 @@ export default function App() {
           }
           
           //check down on column
-
           for(let i = rowIndex+1; i < 9  ; i++){
             if(newSquareStatuses[i][columnIndex].number !== undefined){
               if(newSquareStatuses[i][columnIndex].number !== currentDie){
