@@ -4,6 +4,7 @@ import Square from './components/square.tsx';
 import Board from './components/board.tsx';
 import Button from './components/button.tsx';
 import Roll from './components/roll.tsx';
+import HowToDialog from './components/how-to-dialog.tsx';
 import { useState, useCallback, useEffect } from 'react';
 import Score from './components/score.tsx';
 
@@ -213,6 +214,7 @@ export default function App() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-linear-to-t from-neutral-400 to-stone-400">
       <div className="flex flex-col min-h-screen w-full max-w-xl content-start py-10 px-10 bg-stone-50/50 gap-x-2 gap-y-4">
+       <HowToDialog />
         <Title />
         <div className='flex flex-row p-x-5 justify-center gap-8'>
           <Score score={score} />
@@ -232,13 +234,14 @@ export default function App() {
                )       
             )))}
         </Board>
-        <Button onClick={() => resetGame()}>Reset Game</Button>
+         <div className='flex flex-col items-center'>
+          <Button onClick={() => resetGame()}>Reset Game</Button>
+         </div>
         <div className='bg-stone-50 p-5'>
             <p>Credits: The rules and mechanics of Number Pyle were invented by <a className="underline" href="https://lintilion.itch.io/">Lintilion</a></p>
             <p>This implementation is brought to you by <a className="underline" href="https://github.com/JennaBarbara/">JennaBarbara</a></p>
 
         </div>
-
       </div>
     </div>
 
