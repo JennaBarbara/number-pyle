@@ -234,7 +234,7 @@ export default function App() {
         </Board>
         <Button onClick={() => resetGame()}>Reset Game</Button>
         <div className='bg-stone-50 p-5'>
-            <p>Credits: The rules and mechanics of Number Pyle were invented by </p>
+            <p>Credits: The rules and mechanics of Number Pyle were invented by <a className="underline" href="https://lintilion.itch.io/">Lintilion</a></p>
             <p>This implementation is brought to you by <a className="underline" href="https://github.com/JennaBarbara/">JennaBarbara</a></p>
 
         </div>
