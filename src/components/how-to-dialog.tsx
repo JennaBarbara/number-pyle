@@ -26,10 +26,10 @@ export default function HowToDialog() {
                     Every time you place a number, you will get a new roll. If it's even you may place it on one of the last cell's sides, if it's odd you may place it on one of the cells diagonal to the last cell
                 </li>
                 <li>
-                    If two of the same number are 1 or more spaces away from each other in a straight, vertical/horizontal line with nothing in between, that's a NumberPyle and the cells in between are scored. Each scored cell is one point, and the filled cells can't be used to place numbers later
+                    If two of the same number are 1 or more spaces away from each other in a straight, vertical/horizontal line with no other numbers in between, that's a NumberPyle and the cells in between are scored. Each scored cell is one point, and the filled cells can't be used to place numbers later
                 </li>
                 <li>
-                    The game ends when you can't place place your current roll
+                    The game ends when you can't place your current roll
                 </li>
             </ul>
             <div className='flex flex-col items-end pt-6'>
