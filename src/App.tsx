@@ -226,7 +226,7 @@ export default function App() {
           </div>
 
         </div>
-        <Board>
+        <Board isGameOver={isGameOver}>
             {squareStatuses.map((squareStatusRow, rowIndex) =>(
                squareStatusRow.map((squareStatus, columnIndex) => (
                  <Square 
