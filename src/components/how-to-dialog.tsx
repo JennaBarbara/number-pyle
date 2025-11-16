@@ -20,7 +20,7 @@ export default function HowToDialog() {
                     Look at your current roll, it will be a random number between 1 and 6
                 </li>
                 <li>
-                    Pick a central cell on either side as your starting space, your current roll will be placed there
+                    Pick a central cell on either side as your starting cell, your current roll will be placed there
                 </li>
                 <li>
                     Every time you place a number, you will get a new roll. If it's even you may place it on one of the last cell's sides, if it's odd you may place it on one of the cells diagonal to the last cell
