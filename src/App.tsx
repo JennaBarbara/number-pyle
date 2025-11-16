@@ -249,7 +249,7 @@ export default function App() {
 }
 
 function rollDie(): number {
-  return Math.floor(Math.random() * 5) + 1
+  return Math.floor(Math.random() * 6) + 1
 }
 
 function getDefaultStatus():  Array<Array<SquareStatus>> {
