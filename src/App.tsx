@@ -237,10 +237,11 @@ export default function App() {
          <div className='flex flex-col items-center'>
           <Button onClick={() => resetGame()}>Reset Game</Button>
          </div>
-        <div className='bg-stone-50 p-5'>
-            <p>Credits: The rules and mechanics of Number Pyle were invented by <a className="underline" href="https://lintilion.itch.io/">Lintilion</a></p>
+          <div className='flex flex-col bg-stone-50 p-5 gap-2'>
+            <p>Credits:</p>
+            <p>The rules and mechanics of Number Pyle were invented by <a className="underline" href="https://lintilion.itch.io/">Lintilion</a></p>
             <p>This implementation is brought to you by <a className="underline" href="https://github.com/JennaBarbara/">JennaBarbara</a></p>
-
+            <p>Another game mode can be found <a className="underline" href="https://jennabarbara.github.io/number-pyre/">here</a></p>
         </div>
       </div>
     </div>
