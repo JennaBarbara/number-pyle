@@ -6,11 +6,13 @@ import Button from './components/button.tsx';
 import Roll from './components/roll.tsx';
 import HowToDialog from './components/how-to-dialog.tsx';
 import Score from './components/score.tsx';
+import StatsDialog from './components/stats-dialog.tsx';
+import { rollDie } from './utils/rollDie.tsx';
 import { getStoredSquareStatus, setStoredSquareStatuses } from './utils/square-status-storage.tsx';
 import type { SquareStatus } from './utils/square-status.tsx';
 import { useHighScoreStorage } from './utils/use-high-score.tsx';
+import { useCurrentDie } from './utils/use-current-die.tsx';
 import { useState, useCallback, useEffect } from 'react';
-import StatsDialog from './components/stats-dialog.tsx';
 
 
 
@@ -22,7 +24,7 @@ export default function App() {
  const [score, setScore] = useState<number>(0)
 
 
- const [currentDie, setCurrentDie] = useState(rollDie)
+ const [currentDie, setCurrentDie] = useCurrentDie()
  const [isGameOver, setIsGameOver] = useState(false)
 
  //update status in local storage
@@ -217,7 +219,6 @@ export default function App() {
   const resetGame = useCallback(() => {
       setSquareStatuses(getDefaultStatus())
       setCurrentDie(rollDie)
-    
     },
     [ setSquareStatuses, setCurrentDie],
   )
@@ -262,10 +263,6 @@ export default function App() {
     </div>
 
   )
-}
-
-function rollDie(): number {
-  return Math.floor(Math.random() * 6) + 1
 }
 
 function getDefaultStatus():  Array<Array<SquareStatus>> {
