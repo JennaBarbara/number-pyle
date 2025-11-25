@@ -7,6 +7,7 @@ import Roll from './components/roll.tsx';
 import HowToDialog from './components/how-to-dialog.tsx';
 import Score from './components/score.tsx';
 import StatsDialog from './components/stats-dialog.tsx';
+import ShareButton from './components/share-button.tsx';
 import { rollDie } from './utils/rollDie.tsx';
 import { getStoredSquareStatus, setStoredSquareStatuses } from './utils/square-status-storage.tsx';
 import type { SquareStatus } from './utils/square-status.tsx';
@@ -236,8 +237,9 @@ export default function App() {
           <Score score={score} />
           <Roll currentDie={currentDie} />
         </div>
-        {isGameOver && <div className='flex flex-row p-x-5 justify-center gap-2 text-center'>
+        {isGameOver && <div className='flex flex-col p-x-5 justify-center gap-2 text-center'>
           <p className='text-5xl'>GAME OVER</p>
+           <ShareButton score={score} squareStasuses={squareStatuses} />
         </div>}
         <Board isGameOver={isGameOver}>
             {squareStatuses.map((squareStatusRow, rowIndex) =>(
