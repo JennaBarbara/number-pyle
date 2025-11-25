@@ -8,7 +8,7 @@ export default function HowToDialog() {
 
   return (
     <>
-      <div className='flex flex-col items-end pt-6'>
+      <div className='flex flex-col items-end'>
         <Button size="sm" onClick={() => setIsOpen(true)}>How to play</Button>
       </div>  
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">

@@ -5,27 +5,38 @@ import Board from './components/board.tsx';
 import Button from './components/button.tsx';
 import Roll from './components/roll.tsx';
 import HowToDialog from './components/how-to-dialog.tsx';
-import { useState, useCallback, useEffect } from 'react';
 import Score from './components/score.tsx';
-
-
-export interface SquareStatus {
-  number?: number,
-  scored: boolean,
-  selectable: boolean
-} 
+import { getStoredSquareStatus, setStoredSquareStatuses } from './utils/square-status-storage.tsx';
+import type { SquareStatus } from './utils/square-status.tsx';
+import { useHighScoreStorage } from './utils/use-high-score.tsx';
+import { useState, useCallback, useEffect } from 'react';
+import StatsDialog from './components/stats-dialog.tsx';
 
 
 
 
 export default function App() {
 
- const [squareStatuses, setSquareStatuses ] = useState<Array<Array<SquareStatus>>>(getDefaultStatus)
- const [score, setScore] = useState(0)
+ const [squareStatuses, setSquareStatuses ] = useState<Array<Array<SquareStatus>>>(getStoredSquareStatus() ?? getDefaultStatus())
+ const [highScore, setHighScore] = useHighScoreStorage();
+ const [score, setScore] = useState<number>(0)
 
 
  const [currentDie, setCurrentDie] = useState(rollDie)
  const [isGameOver, setIsGameOver] = useState(false)
+
+ //update status in local storage
+  useEffect(() => {
+    setStoredSquareStatuses(squareStatuses)
+  },[squareStatuses] )
+
+  //update high score
+  useEffect(()=>{
+    if(score > highScore){
+      setHighScore(score)
+    }
+  }, [score, highScore, setHighScore])
+
 
   //calculate score
   useEffect(() => {
@@ -214,8 +225,12 @@ export default function App() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-linear-to-t from-neutral-400 to-stone-400">
       <div className="flex flex-col min-h-screen w-full max-w-xl content-start py-10 px-10 bg-stone-50/50 gap-x-2 gap-y-4">
-       <HowToDialog />
+       <div className="flex flex-row justify-between pb-4 ">
+        <StatsDialog highScore={highScore} />
+        <HowToDialog />
+        </div>
         <Title />
+        
         <div className='flex flex-row p-x-5 justify-center gap-8'>
           <Score score={score} />
           <Roll currentDie={currentDie} />
@@ -270,6 +285,7 @@ function getDefaultStatus():  Array<Array<SquareStatus>> {
 
   return defaultStatus  
 }
+
 
 
 
