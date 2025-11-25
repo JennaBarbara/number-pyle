@@ -1,4 +1,4 @@
-import type { SquareStatus } from "../App"
+import type { SquareStatus } from "../utils/square-status"
 
 interface SquareProps {
     index: string
