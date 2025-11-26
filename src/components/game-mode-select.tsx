@@ -19,6 +19,11 @@ export default function GameModeSelect(){
              Number Pyre
           </a>
           </MenuItem>
+        <MenuItem>
+          <a className="p-2 block data-focus:bg-white" href="https://jennabarbara.github.io/number-scryer/">
+             Number Scryer
+          </a>
+        </MenuItem>
       </MenuItems>
     </Menu>
   
