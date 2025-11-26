@@ -12,7 +12,7 @@ const variant = squareStatus.selectable ? 'bg-stone-200 cursor-pointer': squareS
 
 return (
     <div 
-        className={` ${variant}  flex flex-col rounded-md  justify-center gap-4 text-center text-lg size-7 md:size-10 md:text-2xl`}
+        className={` ${variant}  flex flex-col transition-colors rounded-md justify-center gap-4 text-center text-lg size-7 md:size-10 md:text-2xl`}
         onClick={squareStatus.selectable ? onClick : undefined}
         >
           {squareStatus.number}

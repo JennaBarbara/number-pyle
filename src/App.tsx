@@ -14,6 +14,7 @@ import type { SquareStatus } from './utils/square-status.tsx';
 import { useHighScoreStorage } from './utils/use-high-score.tsx';
 import { useCurrentDie } from './utils/use-current-die.tsx';
 import { useState, useCallback, useEffect } from 'react';
+import GameModeSelect from './components/game-mode-select.tsx';
 
 
 
@@ -229,6 +230,7 @@ export default function App() {
       <div className="flex flex-col min-h-screen w-full max-w-xl content-start py-10 px-10 bg-stone-50/50 gap-x-2 gap-y-4">
        <div className="flex flex-row justify-between pb-4 ">
         <StatsDialog highScore={highScore} />
+        <GameModeSelect />
         <HowToDialog />
         </div>
         <Title />
@@ -259,7 +261,6 @@ export default function App() {
             <p>Credits:</p>
             <p>The rules and mechanics of Number Pyle were invented by <a className="underline" href="https://lintilion.itch.io/">Lintilion</a></p>
             <p>This implementation is brought to you by <a className="underline" href="https://github.com/JennaBarbara/">JennaBarbara</a></p>
-            <p>Another game mode can be found <a className="underline" href="https://jennabarbara.github.io/number-pyre/">here</a></p>
         </div>
       </div>
     </div>

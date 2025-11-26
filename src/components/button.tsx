@@ -11,7 +11,7 @@ interface ButtonProps {
 
 export default function Button({children, className, onClick, disabled, size='md'}: ButtonProps){
 
-  const padding = size === 'sm' ? 'p-1' : size == 'md' ? 'p-4' : 'p-6'
+  const padding = size === 'sm' ? 'p-2' : size == 'md' ? 'p-4' : 'p-6'
 
     return (
       <div>

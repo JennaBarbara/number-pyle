@@ -33,7 +33,7 @@ export default function HowToDialog() {
                 </li>
             </ul>
             <div className='flex flex-col items-end pt-6'>
-                <Button size="sm" onClick={() => setIsOpen(false)}><b>Close</b></Button>
+                <Button size="sm" onClick={() => setIsOpen(false)}>Close</Button>
             </div>  
           </DialogPanel>
         </div>
