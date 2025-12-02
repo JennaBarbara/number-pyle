@@ -1,20 +1,20 @@
-import './App.css'
-import Title from "./components/title.tsx"
-import Square from './components/square.tsx';
-import Board from './components/board.tsx';
-import Button from './components/button.tsx';
-import Roll from './components/roll.tsx';
-import HowToDialog from './components/how-to-dialog.tsx';
-import Score from './components/score.tsx';
-import StatsDialog from './components/stats-dialog.tsx';
-import ShareButton from './components/share-button.tsx';
-import { rollDie } from './utils/rollDie.tsx';
-import { getStoredSquareStatus, setStoredSquareStatuses } from './utils/square-status-storage.tsx';
-import type { SquareStatus } from './utils/square-status.tsx';
-import { useHighScoreStorage } from './utils/use-high-score.tsx';
-import { useCurrentDie } from './utils/use-current-die.tsx';
+
+import Title from "../../components/title.tsx"
+import Square from '../../components/square.tsx';
+import Board from '../../components/board.tsx';
+import Button from '../../components/button.tsx';
+import Roll from '../../components/roll.tsx';
+import HowToDialog from '../../components/how-to-dialog.tsx';
+import Score from '../../components/score.tsx';
+import StatsDialog from '../../components/stats-dialog.tsx';
+import ShareButton from '../../components/share-button.tsx';
+import { rollDie } from '../../utils/rollDie.tsx';
+import { getStoredSquareStatus, setStoredSquareStatuses } from '../../utils/square-status-storage.tsx';
+import type { SquareStatus } from '../../utils/square-status.tsx';
+import { useHighScoreStorage } from '../../utils/use-high-score.tsx';
+import { useCurrentDie } from '../../utils/use-current-die.tsx';
 import { useState, useCallback, useEffect } from 'react';
-import GameModeSelect from './components/game-mode-select.tsx';
+import GameModeSelect from '../../components/game-mode-select.tsx';
 
 
 
