@@ -4,18 +4,16 @@ import Board from '../../components/board.tsx'
 import Button from '../../components/button.tsx'
 import Roll from '../../components/roll.tsx'
 import Bank from './components/bank.tsx'
-import HowToDialog from './components/how-to-dialog.tsx'
 import ShareButton from '../../components/share-button.tsx'
 import { useState, useCallback, useEffect } from 'react'
 import Score from '../../components/score.tsx'
 import { useCurrentDie } from '../../utils/use-current-die.tsx'
 import { rollDie } from '../../utils/rollDie.tsx'
-import { useHighScore } from '../../utils/use-high-score.tsx';
-import StatsDialog from './components/stats-dialog.tsx'
+import { useHighScore } from '../../utils/use-high-score.tsx'
 import { useBankedDie } from './utils/use-banked-die.tsx'
-import GameModeSelect from '../../components/game-mode-select.tsx'
 import { getDefaultStatus, setSelectable, clearSelectableSquares, upkeepOnSelectSquare } from '../../utils/common-game-utils.tsx'
-import { useSquareStatuses } from "../../utils/use-square-status.tsx";
+import { useSquareStatuses } from "../../utils/use-square-status.tsx"
+import Header from "../../components/header.tsx"
 
 
 const gameModeTitle = "Number Pyre"
@@ -60,8 +58,8 @@ export default function NumberPyre() {
   const bankRoll = useCallback (() => {
 
      const newSquareStatuses= squareStatuses.map(function(row) {
-        return row.slice();
-     });
+        return row.slice()
+     })
 
      const newRoll = bank ?? rollDie()
 
@@ -82,8 +80,8 @@ export default function NumberPyre() {
     (rowIndex: number, columnIndex:number) => {
 
       const newSquareStatuses= squareStatuses.map(function(row) {
-         return row.slice();
-      });
+         return row.slice()
+      })
 
       const newRoll = rollDie()
       setLastPlacedLocation([rowIndex, columnIndex])
@@ -113,11 +111,12 @@ export default function NumberPyre() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-linear-to-t from-red-600 to-stone-400">
       <div className="flex flex-col min-h-screen w-full max-w-xl content-start py-10 px-10 bg-stone-50/50 gap-x-2 gap-y-4">
-       <div className="flex flex-row justify-between pb-4 ">
+       {/* <div className="flex flex-row justify-between pb-4 ">
         <StatsDialog highScore={highScore} />
         <GameModeSelect />
         <HowToDialog />
-        </div>
+        </div> */}
+        <Header  highScore={highScore} gameModeTitle={gameModeTitle} gameModeKey={gameModeKey} />
         <Title title={gameModeTitle}/>
         <div className='flex flex-row justify-between'>
           <Score score={score} />

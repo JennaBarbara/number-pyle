@@ -1,19 +1,17 @@
 
-import Board from '../../components/board.tsx';
-import Button from '../../components/button.tsx';
-import Roll from '../../components/roll.tsx';
-import HowToDialog from './components/how-to-dialog.tsx';
-import ShareButton from '../../components/share-button.tsx';
-import UpcomingDice from './components/upcoming-dice.tsx';
-import { useState, useCallback, useEffect } from 'react';
-import Score from '../../components/score.tsx';
-import {useDice} from './utils/use-dice.tsx';
-import { useHighScore } from '../../utils/use-high-score.tsx';
-import StatsDialog from './components/stats-dialog.tsx';
-import GameModeSelect from '../../components/game-mode-select.tsx';
+import Board from '../../components/board.tsx'
+import Button from '../../components/button.tsx'
+import Roll from '../../components/roll.tsx'
+import ShareButton from '../../components/share-button.tsx'
+import UpcomingDice from './components/upcoming-dice.tsx'
+import { useState, useCallback, useEffect } from 'react'
+import Score from '../../components/score.tsx'
+import {useDice} from './utils/use-dice.tsx'
+import { useHighScore } from '../../utils/use-high-score.tsx'
 import Title from "../../components/title.tsx"
 import {getDefaultStatus, upkeepOnSelectSquare} from '../../utils/common-game-utils.tsx'
-import { useSquareStatuses } from "../../utils/use-square-status.tsx";
+import { useSquareStatuses } from "../../utils/use-square-status.tsx"
+import Header from '../../components/header.tsx'
 
 
 
@@ -61,7 +59,7 @@ export default function NumberScryer() {
     (rowIndex: number, columnIndex:number) => {
 
       const newSquareStatuses= squareStatuses.map(function(row) {
-         return row.slice();
+         return row.slice()
       })
 
       upkeepOnSelectSquare(currentDie, upcomingDice[0], rowIndex, columnIndex, newSquareStatuses)
@@ -84,11 +82,7 @@ export default function NumberScryer() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-linear-to-t from-blue-300 to-stone-400">
       <div className="flex flex-col min-h-screen w-full max-w-xl content-start py-10 px-10 bg-stone-50/50 gap-x-2 gap-y-4">
-       <div className="flex flex-row justify-between pb-4 ">
-        <StatsDialog highScore={highScore} />
-        <GameModeSelect />
-        <HowToDialog />
-        </div>
+       <Header  highScore={highScore} gameModeTitle={gameModeTitle} gameModeKey={gameModeKey} />
         <Title title={gameModeTitle} />
         <div className='flex flex-row p-x-5 justify-center content-end gap-8'>
           <Score score={score} />
