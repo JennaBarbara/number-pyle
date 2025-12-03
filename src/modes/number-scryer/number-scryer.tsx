@@ -7,34 +7,30 @@ import ShareButton from '../../components/share-button.tsx';
 import UpcomingDice from './components/upcoming-dice.tsx';
 import { useState, useCallback, useEffect } from 'react';
 import Score from '../../components/score.tsx';
-import { getStoredSquareStatus, setStoredSquareStatuses } from './utils/square-status-storage.tsx';
-import type { SquareStatus } from '../../utils/square-status.tsx';
 import {useDice} from './utils/use-dice.tsx';
-import { useHighScoreStorage } from './utils/use-high-score.tsx';
+import { useHighScore } from '../../utils/use-high-score.tsx';
 import StatsDialog from './components/stats-dialog.tsx';
 import GameModeSelect from '../../components/game-mode-select.tsx';
 import Title from "../../components/title.tsx"
 import {getDefaultStatus, upkeepOnSelectSquare} from '../../utils/common-game-utils.tsx'
+import { useSquareStatuses } from "../../utils/use-square-status.tsx";
 
 
 
 
 
 const gameModeTitle = "Number Scryer"
+const gameModeKey = "numberScryer"
 
 export default function NumberScryer() {
 
- const [squareStatuses, setSquareStatuses ] = useState<Array<Array<SquareStatus>>>(getStoredSquareStatus() ?? getDefaultStatus())
- const [highScore, setHighScore] = useHighScoreStorage()
+ const [squareStatuses, setSquareStatuses ] = useSquareStatuses(gameModeKey)
  const [score, setScore] = useState<number>(0)
+ const [highScore, setHighScore] = useHighScore(gameModeKey)
 
- const [currentDie, upcomingDice, updateCurrentDie, resetDice] = useDice()
+ const [currentDie, upcomingDice, updateCurrentDie, resetDice] = useDice(gameModeKey)
  const [isGameOver, setIsGameOver] = useState(false)
 
- //update status in local storage
-  useEffect(() => {
-    setStoredSquareStatuses(squareStatuses)
-  },[squareStatuses] )
 
   //update high score
   useEffect(()=>{

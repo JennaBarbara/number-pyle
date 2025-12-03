@@ -1,16 +1,16 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getStoredCurrentDie, setStoredCurrentDie } from './current-die-storage';
+import { getStoredCurrentDie, setStoredCurrentDie } from '../../../utils/current-die-storage'
 import { getStoredUpcomingDice, setStoredUpcomingDice } from './upcoming-dice-storage';
 import { rollDie } from '../../../utils/rollDie.tsx';
 
-export function useDice(): [number,Array<number>, ()=>void, ()=>void ] {
-     const [currentDie, setCurrentDie] = useState<number>(getStoredCurrentDie())
+export function useDice(modeKey: string): [number,Array<number>, ()=>void, ()=>void ] {
+     const [currentDie, setCurrentDie] = useState<number>(getStoredCurrentDie(modeKey))
      const [upcomingDice, setUpcomingDice] = useState<Array<number>>(getStoredUpcomingDice())
 
 
     useEffect(()=>{
-        setStoredCurrentDie(currentDie)
-    }, [currentDie])
+        setStoredCurrentDie(modeKey, currentDie)
+    }, [modeKey,currentDie])
 
 
     useEffect(()=>{

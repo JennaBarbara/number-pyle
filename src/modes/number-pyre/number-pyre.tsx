@@ -8,34 +8,29 @@ import HowToDialog from './components/how-to-dialog.tsx'
 import ShareButton from '../../components/share-button.tsx'
 import { useState, useCallback, useEffect } from 'react'
 import Score from '../../components/score.tsx'
-import { getStoredSquareStatus, setStoredSquareStatuses } from './utils/square-status-storage.tsx'
-import type { SquareStatus } from '../../utils/square-status.tsx'
-import { useCurrentDie } from './utils/use-current-die.tsx'
+import { useCurrentDie } from '../../utils/use-current-die.tsx'
 import { rollDie } from '../../utils/rollDie.tsx'
-import { useHighScoreStorage } from './utils/use-high-score.tsx'
+import { useHighScore } from '../../utils/use-high-score.tsx';
 import StatsDialog from './components/stats-dialog.tsx'
 import { useBankedDie } from './utils/use-banked-die.tsx'
 import GameModeSelect from '../../components/game-mode-select.tsx'
 import { getDefaultStatus, setSelectable, clearSelectableSquares, upkeepOnSelectSquare } from '../../utils/common-game-utils.tsx'
+import { useSquareStatuses } from "../../utils/use-square-status.tsx";
 
 
 const gameModeTitle = "Number Pyre"
+const gameModeKey = "numberPyre"
 
 export default function NumberPyre() {
 
- const [squareStatuses, setSquareStatuses ] = useState<Array<Array<SquareStatus>>>(getStoredSquareStatus() ?? getDefaultStatus())
- const [highScore, setHighScore] = useHighScoreStorage()
+ const [squareStatuses, setSquareStatuses ] = useSquareStatuses(gameModeKey)
  const [score, setScore] = useState<number>(0)
+ const [highScore, setHighScore] = useHighScore(gameModeKey)
 
- const [currentDie, setCurrentDie] = useCurrentDie()
+ const [currentDie, setCurrentDie] = useCurrentDie(gameModeKey)
  const [isGameOver, setIsGameOver] = useState(false)
  const [bank, setBank] = useBankedDie()
  const [lastPlacedLocation, setLastPlacedLocation] =useState<undefined | Array<number>>(undefined)
-
- //update status in local storage
-  useEffect(() => {
-    setStoredSquareStatuses(squareStatuses)
-  },[squareStatuses] )
 
   //update high score
   useEffect(()=>{
@@ -81,7 +76,7 @@ export default function NumberPyre() {
     setCurrentDie(newRoll)
 
 
-  }, [lastPlacedLocation, squareStatuses, currentDie, setCurrentDie, bank, setBank])
+  }, [lastPlacedLocation, squareStatuses, currentDie, setCurrentDie, bank, setBank, setSquareStatuses])
 
   const selectSquare = useCallback(
     (rowIndex: number, columnIndex:number) => {

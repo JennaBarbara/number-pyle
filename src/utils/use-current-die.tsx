@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { getStoredCurrentDie, setStoredCurrentDie } from './current-die-storage';
 
-export function useCurrentDie(): [number, React.Dispatch<React.SetStateAction<number>>] {
-     const [currentDie, setCurrentDie] = useState<number>(getStoredCurrentDie())
+export function useCurrentDie(modeKey: string): [number, React.Dispatch<React.SetStateAction<number>>] {
+     const [currentDie, setCurrentDie] = useState<number>(getStoredCurrentDie(modeKey))
 
     useEffect(()=>{
-        setStoredCurrentDie(currentDie)
-    }, [currentDie])
+        setStoredCurrentDie(modeKey, currentDie)
+    }, [modeKey, currentDie])
 
     return [currentDie, setCurrentDie]
 }

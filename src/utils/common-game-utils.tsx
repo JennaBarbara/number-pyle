@@ -26,7 +26,7 @@ export function upkeepOnSelectSquare(currentDie:number, newRoll:number, rowIndex
     newSquareStatuses[rowIndex][columnIndex].number = currentDie
     
     //check and set for scored
-      setScored(currentDie, rowIndex, columnIndex, newSquareStatuses)
+    setScored(currentDie, rowIndex, columnIndex, newSquareStatuses)
     
     //set new selectable
     setSelectable(newRoll, rowIndex, columnIndex, newSquareStatuses)
