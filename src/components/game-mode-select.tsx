@@ -22,7 +22,7 @@ export default function GameModeSelect(){
         </MenuItem>
         <MenuItem>
           <NavLink className="p-2 block data-focus:bg-white " to="/number-pyle/number-scryer">
-             Number Pyre
+             Number Scryer
           </NavLink>
         </MenuItem>
       </MenuItems>

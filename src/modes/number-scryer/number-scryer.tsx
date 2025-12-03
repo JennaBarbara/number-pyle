@@ -1,5 +1,4 @@
 
-import Square from '../../components/square.tsx';
 import Board from '../../components/board.tsx';
 import Button from '../../components/button.tsx';
 import Roll from '../../components/roll.tsx';
@@ -15,6 +14,7 @@ import { useHighScoreStorage } from './utils/use-high-score.tsx';
 import StatsDialog from './components/stats-dialog.tsx';
 import GameModeSelect from '../../components/game-mode-select.tsx';
 import Title from "../../components/title.tsx"
+import {getDefaultStatus, upkeepOnSelectSquare} from '../../utils/common-game-utils.tsx'
 
 
 
@@ -68,87 +68,13 @@ export default function NumberScryer() {
          return row.slice();
       })
 
-      //clear selectable cells
-      for (let i = 0; i < 9; i++) {
-        for (let j=0; j<9; j++) {
-          newSquareStatuses[i][j].selectable=false
-        }
-      }
-
-      //updateSquare
-      newSquareStatuses[rowIndex][columnIndex].number = currentDie
-      
-      //check and set for scored
-          //check left on row
-          for(let i = columnIndex+1; i < 9 ; i++){
-            if(newSquareStatuses[rowIndex][i].number !== undefined){
-              if(newSquareStatuses[rowIndex][i].number !== currentDie){
-                break
-              }
-              else if(newSquareStatuses[rowIndex][i].number === currentDie) {
-                for(let j = columnIndex+1; j < i ; j++){
-                  newSquareStatuses[rowIndex][j].scored = true
-                }
-                break
-              }
-            }
-          }
-
-          //check right on row
-            for(let i = columnIndex-1; i > -1  ; i--){
-            if(newSquareStatuses[rowIndex][i].number !== undefined){
-              if(newSquareStatuses[rowIndex][i].number !== currentDie){
-                break
-              }
-              else if(newSquareStatuses[rowIndex][i].number === currentDie) {
-                for(let j = columnIndex-1; j > i ; j--){
-                  newSquareStatuses[rowIndex][j].scored = true
-                }
-                break
-              }
-            }
-          }
-
-          //check up on column
-          for(let i = rowIndex-1; i > -1  ; i--){
-            if(newSquareStatuses[i][columnIndex].number !== undefined){
-              if(newSquareStatuses[i][columnIndex].number !== currentDie){
-                break
-              }
-              else if(newSquareStatuses[i][columnIndex].number === currentDie) {
-                for(let j = rowIndex-1; j > i ; j--){
-                  newSquareStatuses[j][columnIndex].scored = true
-                }
-                break
-              }
-            }
-          }
-          
-          //check down on column
-          for(let i = rowIndex+1; i < 9  ; i++){
-            if(newSquareStatuses[i][columnIndex].number !== undefined){
-              if(newSquareStatuses[i][columnIndex].number !== currentDie){
-                break
-              }
-              else if(newSquareStatuses[i][columnIndex].number === currentDie) {
-                for(let j = rowIndex+1; j < i ; j++){
-                  newSquareStatuses[j][columnIndex].scored = true
-                }
-                break
-              }
-            }
-          }
-      
-      //set new selectable
-      setSelectable(upcomingDice[0], rowIndex, columnIndex, newSquareStatuses)
+      upkeepOnSelectSquare(currentDie, upcomingDice[0], rowIndex, columnIndex, newSquareStatuses)
 
       //set new status
       setSquareStatuses(newSquareStatuses)
 
       //updateDice
        updateCurrentDie()
-
-
     },
     [squareStatuses, setSquareStatuses, currentDie, upcomingDice, updateCurrentDie],
   )
@@ -177,17 +103,7 @@ export default function NumberScryer() {
           <p className='text-5xl'>GAME OVER</p>
           <ShareButton score={score} squareStasuses={squareStatuses} gameModeTitle={gameModeTitle} />
         </div>}
-        <Board isGameOver={isGameOver}>
-            {squareStatuses.map((squareStatusRow, rowIndex) =>(
-               squareStatusRow.map((squareStatus, columnIndex) => (
-                 <Square 
-                  squareStatus={squareStatus} 
-                  index={`${rowIndex}-${columnIndex}`} 
-                  key={`square-${rowIndex}-${columnIndex}`} 
-                  onClick={()=>selectSquare(rowIndex, columnIndex)} />
-               )       
-            )))}
-        </Board>
+        <Board isGameOver={isGameOver} squareStatuses={squareStatuses} onSelectSquare={selectSquare} />
          <div className='flex flex-col items-center'>
           <Button onClick={() => resetGame()}>Reset Game</Button>
          </div>
@@ -203,96 +119,7 @@ export default function NumberScryer() {
   )
 }
 
-function getDefaultStatus():  Array<Array<SquareStatus>> {
-  const defaultStatus: Array<Array<SquareStatus>> = []
-  for (let i = 0; i < 9; i++) {
-    const defaultRow: Array<SquareStatus> = []
-    for (let j=0; j<9; j++) {
-      defaultRow.push(
-        {
-          scored: false,
-          selectable: j == 0 && i == 4 || j== 8 && i == 4 ? true : false
-        }
-      )
-    }
-    defaultStatus.push(defaultRow)
-  }
-
-  return defaultStatus  
-}
 
 
-function setSelectable(newRoll:number, rowIndex: number, columnIndex: number, newSquareStatuses: Array<Array<SquareStatus>>){
-        //even
-        if(newRoll % 2 == 0) {
-        //up
-        if ( rowIndex-1 > -1 &&
-          newSquareStatuses[rowIndex-1][columnIndex] !==undefined && 
-          newSquareStatuses[rowIndex-1][columnIndex].number === undefined && 
-         !newSquareStatuses[rowIndex-1][columnIndex].scored) {
-          newSquareStatuses[rowIndex-1][columnIndex].selectable = true
-        }
-        //down
-
-      if ( rowIndex+1 <9 &&
-          newSquareStatuses[rowIndex+1][columnIndex] !==undefined && 
-          newSquareStatuses[rowIndex+1][columnIndex].number === undefined && 
-         !newSquareStatuses[rowIndex+1][columnIndex].scored) {
-          newSquareStatuses[rowIndex+1][columnIndex].selectable = true
-        }
-
-        //left
-        if ( columnIndex-1 > -1 &&
-          newSquareStatuses[rowIndex][columnIndex-1] !==undefined && 
-          newSquareStatuses[rowIndex][columnIndex-1].number === undefined && 
-         !newSquareStatuses[rowIndex][columnIndex-1].scored) {
-          newSquareStatuses[rowIndex][columnIndex-1].selectable = true
-        }
-
-        //right
-      if ( columnIndex+1 <9 &&
-          newSquareStatuses[rowIndex][columnIndex+1] !==undefined && 
-          newSquareStatuses[rowIndex][columnIndex+1].number === undefined && 
-         !newSquareStatuses[rowIndex][columnIndex+1].scored) {
-          newSquareStatuses[rowIndex][columnIndex+1].selectable = true
-        }
-      }
-      //odd
-      else {
-        //up - left
-        if (
-          rowIndex-1 > -1 && columnIndex-1 > -1 &&
-          newSquareStatuses[rowIndex-1][columnIndex-1] !==undefined && 
-          newSquareStatuses[rowIndex-1][columnIndex-1].number === undefined && 
-         !newSquareStatuses[rowIndex-1][columnIndex-1].scored) {
-          newSquareStatuses[rowIndex-1][columnIndex-1].selectable = true
-        }
-        //up-right
-        if (rowIndex-1 > -1 && columnIndex+1 < 9 &&
-          newSquareStatuses[rowIndex-1][columnIndex+1] !==undefined && 
-          newSquareStatuses[rowIndex-1][columnIndex+1].number === undefined && 
-         !newSquareStatuses[rowIndex-1][columnIndex+1].scored) {
-          newSquareStatuses[rowIndex-1][columnIndex+1].selectable = true
-        }
-        //down left
-        if (
-          rowIndex+1 < 9 && columnIndex-1 > -1 &&
-          newSquareStatuses[rowIndex+1][columnIndex-1] !==undefined && 
-          newSquareStatuses[rowIndex+1][columnIndex-1].number === undefined && 
-         !newSquareStatuses[rowIndex+1][columnIndex-1].scored) {
-          newSquareStatuses[rowIndex+1][columnIndex-1].selectable = true
-        }
-
-        //down right
-        if (
-          rowIndex+1 < 9 && columnIndex+1 < 9 &&
-          newSquareStatuses[rowIndex+1][columnIndex+1] !==undefined && 
-          newSquareStatuses[rowIndex+1][columnIndex+1].number === undefined && 
-         !newSquareStatuses[rowIndex+1][columnIndex+1].scored) {
-          newSquareStatuses[rowIndex+1][columnIndex+1].selectable = true
-        }
-
-      }
-}
 
 
