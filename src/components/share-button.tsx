@@ -5,10 +5,11 @@ import { useState } from "react"
 interface ShareButtonProps {
    score: number
    squareStasuses: Array<Array<SquareStatus>> 
+   gameModeTitle: string
 }
-export default function ShareButton({score, squareStasuses}:ShareButtonProps) {
+export default function ShareButton({score, squareStasuses, gameModeTitle}:ShareButtonProps) {
 
-    const [boardStateText] = useState(generateBoardStateText(score, squareStasuses))
+    const [boardStateText] = useState(generateBoardStateText(score, squareStasuses, gameModeTitle ))
         const [copyStatus, setCopyStatus] = useState('');
 
     const copyBoardState = async () => {
@@ -34,8 +35,8 @@ export default function ShareButton({score, squareStasuses}:ShareButtonProps) {
 
 }
 
-function generateBoardStateText(   score: number, squareStasuses: Array<Array<SquareStatus>> ):string{
-    return `You scored a ${score} in Number Pyle \n \n${generateEmojiBoard(squareStasuses)}`
+function generateBoardStateText(   score: number, squareStasuses: Array<Array<SquareStatus>>, gameModeTitle: string ):string{
+    return `You scored a ${score} in ${gameModeTitle} \n \n${generateEmojiBoard(squareStasuses)}`
 }
 
 function generateEmojiBoard( squareStasuses: Array<Array<SquareStatus>> ) : string {

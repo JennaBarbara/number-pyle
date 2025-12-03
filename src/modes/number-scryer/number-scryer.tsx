@@ -1,24 +1,26 @@
 
-import Title from "./components/title.tsx"
-import Square from './components/square.tsx';
-import Board from './components/board.tsx';
-import Button from './components/button.tsx';
-import Roll from './components/roll.tsx';
+import Square from '../../components/square.tsx';
+import Board from '../../components/board.tsx';
+import Button from '../../components/button.tsx';
+import Roll from '../../components/roll.tsx';
 import HowToDialog from './components/how-to-dialog.tsx';
-import ShareButton from './components/share-button.tsx';
+import ShareButton from '../../components/share-button.tsx';
 import UpcomingDice from './components/upcoming-dice.tsx';
 import { useState, useCallback, useEffect } from 'react';
-import Score from './components/score.tsx';
+import Score from '../../components/score.tsx';
 import { getStoredSquareStatus, setStoredSquareStatuses } from './utils/square-status-storage.tsx';
-import type { SquareStatus } from './utils/square-status.tsx';
+import type { SquareStatus } from '../../utils/square-status.tsx';
 import {useDice} from './utils/use-dice.tsx';
 import { useHighScoreStorage } from './utils/use-high-score.tsx';
 import StatsDialog from './components/stats-dialog.tsx';
 import GameModeSelect from '../../components/game-mode-select.tsx';
+import Title from "../../components/title.tsx"
 
 
 
 
+
+const gameModeTitle = "Number Scryer"
 
 export default function NumberScryer() {
 
@@ -165,15 +167,15 @@ export default function NumberScryer() {
         <GameModeSelect />
         <HowToDialog />
         </div>
-        <Title />
-        <div className='flex flex-row p-x-5 justify-center gap-8'>
+        <Title title={gameModeTitle} />
+        <div className='flex flex-row p-x-5 justify-center content-end gap-8'>
           <Score score={score} />
           <Roll currentDie={currentDie} />
           <UpcomingDice upcomingDice={upcomingDice} />
         </div>
         {isGameOver && <div className='flex flex-col p-x-5 justify-center gap-2 text-center'>
           <p className='text-5xl'>GAME OVER</p>
-          <ShareButton score={score} squareStasuses={squareStatuses} />
+          <ShareButton score={score} squareStasuses={squareStatuses} gameModeTitle={gameModeTitle} />
         </div>}
         <Board isGameOver={isGameOver}>
             {squareStatuses.map((squareStatusRow, rowIndex) =>(

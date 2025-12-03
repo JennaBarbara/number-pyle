@@ -1,4 +1,4 @@
-import { rollDie } from "./roll-die"
+import { rollDie } from '../../../utils/rollDie.tsx';
 
 
 const STORED_CURRENT_DIE = "numberScryer.currentDie"

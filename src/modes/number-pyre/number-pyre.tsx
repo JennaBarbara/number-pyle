@@ -1,25 +1,25 @@
 
-import Title from "./components/title.tsx"
-import Square from './components/square.tsx';
-import Board from './components/board.tsx';
-import Button from './components/button.tsx';
-import Roll from './components/roll.tsx';
+import Title from "../../components/title.tsx"
+import Square from '../../components/square.tsx';
+import Board from '../../components/board.tsx';
+import Button from '../../components/button.tsx';
+import Roll from '../../components/roll.tsx';
 import Bank from './components/bank.tsx';
 import HowToDialog from './components/how-to-dialog.tsx';
-import ShareButton from './components/share-button.tsx';
+import ShareButton from '../../components/share-button.tsx';
 import { useState, useCallback, useEffect } from 'react';
-import Score from './components/score.tsx';
+import Score from '../../components/score.tsx';
 import { getStoredSquareStatus, setStoredSquareStatuses } from './utils/square-status-storage.tsx';
-import type { SquareStatus } from './utils/square-status.tsx';
+import type { SquareStatus } from '../../utils/square-status.tsx';
 import { useCurrentDie } from './utils/use-current-die.tsx';
-import { rollDie } from './utils/rollDie.tsx';
+import { rollDie } from '../../utils/rollDie.tsx';
 import { useHighScoreStorage } from './utils/use-high-score.tsx';
 import StatsDialog from './components/stats-dialog.tsx';
 import { useBankedDie } from './utils/use-banked-die.tsx';
 import GameModeSelect from '../../components/game-mode-select.tsx';
 
 
-
+const gameModeTitle = "Number Pyre"
 
 export default function NumberPyre() {
 
@@ -199,7 +199,7 @@ export default function NumberPyre() {
         <GameModeSelect />
         <HowToDialog />
         </div>
-        <Title />
+        <Title title={gameModeTitle}/>
         <div className='flex flex-row justify-between'>
           <Score score={score} />
           <Roll currentDie={currentDie} />
@@ -209,7 +209,7 @@ export default function NumberPyre() {
         </div>
         {isGameOver && <div className='flex flex-col p-x-5 justify-center gap-2 text-center'>
           <p className='text-5xl'>GAME OVER</p>
-          <ShareButton score={score} squareStasuses={squareStatuses} />
+          <ShareButton score={score} squareStasuses={squareStatuses} gameModeTitle={gameModeTitle} />
         </div>}
         <Board isGameOver={isGameOver}>
             {squareStatuses.map((squareStatusRow, rowIndex) =>(

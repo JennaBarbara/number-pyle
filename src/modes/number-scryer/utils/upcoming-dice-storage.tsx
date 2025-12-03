@@ -1,5 +1,4 @@
-import { rollDie } from "./roll-die"
-
+import { rollDie } from '../../../utils/rollDie.tsx';
 
 const STORED_UPCOMING_DICE = "numberScryer.upcomingDice"
 

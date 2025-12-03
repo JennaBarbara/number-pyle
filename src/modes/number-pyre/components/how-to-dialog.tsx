@@ -1,7 +1,7 @@
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import { useState } from 'react'
 
-import Button from './button'
+import Button from '../../../components/button'
 
 export default function HowToDialog() {
   const [isOpen, setIsOpen] = useState(false)

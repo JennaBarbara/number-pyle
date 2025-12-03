@@ -1,4 +1,4 @@
-import { rollDie } from "./rollDie"
+import {rollDie} from "../../../utils/rollDie"
 
 
 const STORED_CURRENT_DIE = "numberPyre.currentDie"

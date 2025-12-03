@@ -1,5 +1,5 @@
 
-import type { SquareStatus } from "./square-status"
+import type { SquareStatus } from '../../../utils/square-status.tsx';
 
 const STORED_SQUARE_STATUSES = "numberPyre.squareStasuses"
 

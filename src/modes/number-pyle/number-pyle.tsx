@@ -18,6 +18,7 @@ import GameModeSelect from '../../components/game-mode-select.tsx';
 
 
 
+const gameModeTitle = "Number Pyle"
 
 export default function App() {
 
@@ -139,7 +140,7 @@ export default function App() {
       
       //set new selectable
       const newRoll = rollDie()
-      //even
+      //even 
       if(newRoll % 2 == 0) {
         //up
         if ( rowIndex-1 > -1 &&
@@ -233,7 +234,7 @@ export default function App() {
         <GameModeSelect />
         <HowToDialog />
         </div>
-        <Title />
+        <Title title={gameModeTitle} />
         
         <div className='flex flex-row p-x-5 justify-center gap-8'>
           <Score score={score} />
@@ -241,7 +242,7 @@ export default function App() {
         </div>
         {isGameOver && <div className='flex flex-col p-x-5 justify-center gap-2 text-center'>
           <p className='text-5xl'>GAME OVER</p>
-           <ShareButton score={score} squareStasuses={squareStatuses} />
+           <ShareButton score={score} squareStasuses={squareStatuses} gameModeTitle={gameModeTitle} />
         </div>}
         <Board isGameOver={isGameOver}>
             {squareStatuses.map((squareStatusRow, rowIndex) =>(
