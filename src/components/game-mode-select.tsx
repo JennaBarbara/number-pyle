@@ -1,28 +1,31 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
-import Button from './button'
+import { NavLink } from 'react-router'
 
 export default function GameModeSelect(){
 
 
   return (
 <Menu>
-      <MenuButton className="focus-visible:outline-0"><Button size="sm">Game Mode</Button></MenuButton>
+      <MenuButton className="focus-visible:outline-0">
+        <div className="p-2 cursor-pointer outline-2 outline-black rounded-md bg-radial-[at_25%_25%] from-white via-stone-200 to-stone-100 hover:via-stone-100 hover:to-white disabled:opacity-50">
+          Game Mode
+        </div></MenuButton>
       <MenuItems anchor="bottom" className="mt-1 outline-0 border-2 rounded-md bg-stone-200 divide-solid divide-y-2 data-focus:outline-red">
         <MenuItem>
-          <a className="p-2 block data-focus:bg-white " href="https://jennabarbara.github.io/number-pyle/">
+          <NavLink className="p-2 block data-focus:bg-white " to="/number-pyle">
             Number Pyle
-          </a>
+          </NavLink>
         </MenuItem>
         <MenuItem>
-          <a className="p-2 block data-focus:bg-white" href="https://jennabarbara.github.io/number-pyre/">
+          <NavLink className="p-2 block data-focus:bg-white " to="/number-pyle/number-pyre">
              Number Pyre
-          </a>
-          </MenuItem>
+          </NavLink>
+        </MenuItem>
         <MenuItem>
-          <a className="p-2 block data-focus:bg-white" href="https://jennabarbara.github.io/number-scryer/">
+          <NavLink className="p-2 block data-focus:bg-white " to="/number-pyle/number-scryer">
              Number Scryer
-          </a>
+          </NavLink>
         </MenuItem>
       </MenuItems>
     </Menu>

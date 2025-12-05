@@ -1,11 +1,11 @@
 
 import type { SquareStatus } from "./square-status"
 
-const STORED_SQUARE_STATUSES = "numberPyle.squareStasuses"
+const STORED_SQUARE_STATUSES_KEY = ".squareStasuses"
 
 
-export function getStoredSquareStatus(): Array<Array<SquareStatus>> | undefined {
-  const rawStoredStatus = localStorage.getItem(STORED_SQUARE_STATUSES)
+export function getStoredSquareStatuses(modeKey: string): Array<Array<SquareStatus>> | undefined {
+  const rawStoredStatus = localStorage.getItem(modeKey+STORED_SQUARE_STATUSES_KEY)
   if(!rawStoredStatus) {
     return undefined
   }
@@ -13,6 +13,6 @@ export function getStoredSquareStatus(): Array<Array<SquareStatus>> | undefined 
   return storedStatus
 }
 
-export function setStoredSquareStatuses(squareStatuses: Array<Array<SquareStatus>> ) {
-  localStorage.setItem(STORED_SQUARE_STATUSES, JSON.stringify(squareStatuses))
+export function setStoredSquareStatuses(modeKey: string, squareStatuses: Array<Array<SquareStatus>> ) {
+  localStorage.setItem(modeKey+STORED_SQUARE_STATUSES_KEY, JSON.stringify(squareStatuses))
 }

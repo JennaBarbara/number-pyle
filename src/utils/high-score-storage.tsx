@@ -1,9 +1,9 @@
 
 
-const STORED_HIGH_SCORE = "numberPyle.highScore"
+const STORED_HIGH_SCORE_KEY = ".highScore"
 
-export function getStoredHighScore(): number {
-  const rawHighScore = localStorage.getItem(STORED_HIGH_SCORE)
+export function getStoredHighScore(modeKey: string): number {
+  const rawHighScore = localStorage.getItem(modeKey+STORED_HIGH_SCORE_KEY)
   if(rawHighScore && typeof parseInt(rawHighScore) === 'number' ) {
     return parseInt(rawHighScore)
   }
@@ -11,6 +11,6 @@ export function getStoredHighScore(): number {
 
 }
 
-export function setStoredHighScore(highScore: number ) {
-  localStorage.setItem(STORED_HIGH_SCORE, highScore.toString())
+export function setStoredHighScore(modeKey: string, highScore: number ) {
+  localStorage.setItem(modeKey+STORED_HIGH_SCORE_KEY, highScore.toString())
 }
