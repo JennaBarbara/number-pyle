@@ -2,8 +2,6 @@
 import Title from "../../components/title.tsx"
 import Board from '../../components/board.tsx'
 import Button from '../../components/button.tsx'
-import Roll from '../../components/roll.tsx'
-import Score from '../../components/score.tsx'
 import ShareButton from '../../components/share-button.tsx'
 import { rollDie } from '../../utils/rollDie.tsx'
 import { useHighScore } from '../../utils/use-high-score.tsx'
@@ -12,6 +10,7 @@ import { useState, useCallback, useEffect } from 'react'
 import {getDefaultStatus, upkeepOnSelectSquare} from '../../utils/common-game-utils.tsx'
 import { useSquareStatuses } from "../../utils/use-square-status.tsx"
 import Header from "../../components/header.tsx"
+import NumberDisplay from "../../components/number-display.tsx"
 
 
 
@@ -86,17 +85,16 @@ export default function App() {
       <div className="flex flex-col min-h-screen w-full max-w-xl content-start py-10 px-10 bg-stone-50/50 gap-x-2 gap-y-4">
         <Header highScore={highScore} gameModeTitle={gameModeTitle} gameModeKey={gameModeKey} />
         <Title title={gameModeTitle} />
-        
-        <div className='flex flex-row p-x-5 justify-center gap-8'>
-          <Score score={score} />
-          <Roll currentDie={currentDie} />
+        <div className='flex flex-row p-x-20 justify-center gap-8'>
+          <NumberDisplay label='Score' color='red' numbers={[score]} />
+          <NumberDisplay label='Current Roll' color='stone' numbers={[currentDie]} />
         </div>
-        {isGameOver && <div className='flex flex-col p-x-5 justify-center gap-2 text-center'>
+        <div className={`flex flex-col justify-center gap-2 text-center transition-[height] duration-500 overflow-hidden ${!isGameOver ? 'h-0' : 'h-25'}`}>
           <p className='text-5xl'>GAME OVER</p>
-           <ShareButton score={score} squareStasuses={squareStatuses} gameModeTitle={gameModeTitle} />
-        </div>}
+          <ShareButton score={score} squareStasuses={squareStatuses} gameModeTitle={gameModeTitle} />
+        </div>
         <Board isGameOver={isGameOver} squareStatuses={squareStatuses} onSelectSquare={selectSquare} />
-         <div className='flex flex-col items-center'>
+         <div className='flex flex-row justify-center'>
           <Button onClick={() => resetGame()}>Reset Game</Button>
          </div>
           <div className='flex flex-col bg-stone-50 p-5 gap-2'>

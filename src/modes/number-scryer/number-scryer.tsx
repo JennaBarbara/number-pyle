@@ -1,17 +1,15 @@
 
 import Board from '../../components/board.tsx'
 import Button from '../../components/button.tsx'
-import Roll from '../../components/roll.tsx'
 import ShareButton from '../../components/share-button.tsx'
-import UpcomingDice from './components/upcoming-dice.tsx'
 import { useState, useCallback, useEffect } from 'react'
-import Score from '../../components/score.tsx'
 import {useDice} from './utils/use-dice.tsx'
 import { useHighScore } from '../../utils/use-high-score.tsx'
 import Title from "../../components/title.tsx"
 import {getDefaultStatus, upkeepOnSelectSquare} from '../../utils/common-game-utils.tsx'
 import { useSquareStatuses } from "../../utils/use-square-status.tsx"
 import Header from '../../components/header.tsx'
+import NumberDisplay from '../../components/number-display.tsx'
 
 
 
@@ -84,15 +82,15 @@ export default function NumberScryer() {
       <div className="flex flex-col min-h-screen w-full max-w-xl content-start py-10 px-10 bg-stone-50/50 gap-x-2 gap-y-4">
        <Header  highScore={highScore} gameModeTitle={gameModeTitle} gameModeKey={gameModeKey} />
         <Title title={gameModeTitle} />
-        <div className='flex flex-row p-x-5 justify-center content-end gap-8'>
-          <Score score={score} />
-          <Roll currentDie={currentDie} />
-          <UpcomingDice upcomingDice={upcomingDice} />
-        </div>
-        {isGameOver && <div className='flex flex-col p-x-5 justify-center gap-2 text-center'>
-          <p className='text-5xl'>GAME OVER</p>
-          <ShareButton score={score} squareStasuses={squareStatuses} gameModeTitle={gameModeTitle} />
-        </div>}
+         <div className='flex flex-row gap-4 justify-between items-end'>
+           <NumberDisplay label='Score' color='red' numbers={[score]} />
+           <NumberDisplay label='Current Roll' color='stone' numbers={[currentDie]} />
+           <NumberDisplay label='Next Rolls' color='blue' numbers={upcomingDice}  />
+         </div>
+         <div className={`flex flex-col p-x-5 justify-center gap-2 text-center transition-[height] duration-500 overflow-hidden ${!isGameOver ? 'h-0' : 'h-25'}`}>
+           <p className='text-5xl'>GAME OVER</p>
+           <ShareButton score={score} squareStasuses={squareStatuses} gameModeTitle={gameModeTitle} />
+         </div>
         <Board isGameOver={isGameOver} squareStatuses={squareStatuses} onSelectSquare={selectSquare} />
          <div className='flex flex-col items-center'>
           <Button onClick={() => resetGame()}>Reset Game</Button>
