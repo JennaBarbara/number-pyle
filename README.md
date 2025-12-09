@@ -1,73 +1,21 @@
-# React + TypeScript + Vite
+# Number Pyle
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Number Pyle was originally conceived of as a paper and dice game by another Toronto game developer. The game involves trying to make vertical/horizontal lines between matching numbers on a 9x9 grid. I adapted the game into a browser game using React and Typescript, with React Router to switch between game modes. I humbly consider it a fun way to kill a few minutes here and there.
 
-Currently, two official plugins are available:
+# Rules
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Look at your current roll, it will be a random number between 1 and 6
+- Pick a central cell on either side of the grid as your starting cell, your current roll will be placed there
+- Every time you place a number, you will get a new roll. If it's even you may place it on one of the last cell's sides, if it's odd you may place it on one of the cells diagonal to the last cell
+- If two of the same number are 1 or more spaces away from each other in a straight, vertical/horizontal line with no other numbers in between, that's a NumberPyle and the cells in between are scored. Each scored cell is one point, and the filled cells can't be used to place numbers later
+- The game ends when you can't place your current roll
 
-## React Compiler
+# Game Modes
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Number Pyre (Bank Mechanic)
 
-## Expanding the ESLint configuration
+This game mode gives players the option to save their current roll for later by placing it in the "bank". If they do, their current roll with be replaced by the current contents of the bank, or a new roll if the bank is empty
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Number Scryre (Look-Ahead Mechanic)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+This game mode shows the player what their next two rolls will be, in addition to their current roll
