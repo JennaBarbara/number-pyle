@@ -10,7 +10,7 @@ import NumberScryer from './modes/number-scryer/number-scryer.tsx';
 const router = createBrowserRouter( 
     [{
     // no component, just a path
-    path: "number-pyle",
+    path: "",
     children: [
         {
           index: true,
