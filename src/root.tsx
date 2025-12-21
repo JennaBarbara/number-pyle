@@ -4,8 +4,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "react-router";
-import App from "./modes/number-pyle/number-pyle";
+} from "react-router"
 
 export function Layout({
   children,
@@ -34,7 +33,7 @@ export function Layout({
 }
 
 export function HydrateFallback() {
-  return <App />
+  return <div>Loading...</div>
 }
 
 
