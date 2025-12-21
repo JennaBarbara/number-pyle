@@ -13,7 +13,6 @@ import Header from "../../components/header.tsx"
 import NumberDisplay from "../../components/number-display.tsx"
 
 
-
 const gameModeTitle = "Number Pyle"
 const gameModeKey = "numberPyle"
 
