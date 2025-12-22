@@ -4,7 +4,7 @@ const STORED_UPCOMING_DICE = "numberScryer.upcomingDice"
 
 
 export function getStoredUpcomingDice(): Array<number> {
-  const rawStoredDice = localStorage.getItem(STORED_UPCOMING_DICE)
+  const rawStoredDice = typeof window !== "undefined" ? localStorage.getItem(STORED_UPCOMING_DICE) : undefined
   if(!rawStoredDice ) {
    return [rollDie(), rollDie()]
   }
