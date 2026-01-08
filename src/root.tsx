@@ -17,7 +17,7 @@ export function Layout({
     <head>
         <meta charSet="UTF-8" />
         <meta name="format-detection" content="telephone=no" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+        <link rel="icon" type="image/svg+xml" href="../favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Number Pyle</title>
         <Meta />
