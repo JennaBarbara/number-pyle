@@ -13,17 +13,17 @@ export default function GameModeSelect(){
         </div></MenuButton>
       <MenuItems anchor="bottom" className="mt-1 outline-0 border-0 rounded-md bg-stone-200 divide-solid divide-y-2 divide-white data-focus:outline-red">
         <MenuItem>
-          <NavLink className="p-2 block data-focus:bg-white " to="/">
+          <NavLink className="p-2 block data-focus:bg-white " to="/number-pyle/">
             Number Pyle
           </NavLink>
         </MenuItem>
         <MenuItem>
-          <NavLink className="p-2 block data-focus:bg-white " to="/number-pyre">
+          <NavLink className="p-2 block data-focus:bg-white " to="/number-pyle/number-pyre">
              Number Pyre
           </NavLink>
         </MenuItem>
         <MenuItem>
-          <NavLink className="p-2 block data-focus:bg-white " to="/number-scryer">
+          <NavLink className="p-2 block data-focus:bg-white " to="/number-pyle/number-scryer">
              Number Scryer
           </NavLink>
         </MenuItem>
