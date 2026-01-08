@@ -3,7 +3,7 @@
 const STORED_HIGH_SCORE_KEY = ".highScore"
 
 export function getStoredHighScore(modeKey: string): number {
-  const rawHighScore = localStorage.getItem(modeKey+STORED_HIGH_SCORE_KEY)
+  const rawHighScore = typeof window !== "undefined" ? localStorage.getItem(modeKey+STORED_HIGH_SCORE_KEY) : undefined
   if(rawHighScore && typeof parseInt(rawHighScore) === 'number' ) {
     return parseInt(rawHighScore)
   }

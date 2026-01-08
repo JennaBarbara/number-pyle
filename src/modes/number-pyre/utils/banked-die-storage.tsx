@@ -2,7 +2,7 @@
 const STORED_BANKED_DIE = "numberPyre.bankedDie"
 
 export function getStoredBankedDie(): number | undefined {
-  const rawDie = localStorage.getItem(STORED_BANKED_DIE)
+  const rawDie = typeof window !== "undefined" ? localStorage.getItem(STORED_BANKED_DIE) : undefined
   if(rawDie && typeof parseInt(rawDie) === 'number' ) {
     return parseInt(rawDie)
   }

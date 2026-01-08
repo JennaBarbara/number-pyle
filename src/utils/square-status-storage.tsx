@@ -5,7 +5,7 @@ const STORED_SQUARE_STATUSES_KEY = ".squareStasuses"
 
 
 export function getStoredSquareStatuses(modeKey: string): Array<Array<SquareStatus>> | undefined {
-  const rawStoredStatus = localStorage.getItem(modeKey+STORED_SQUARE_STATUSES_KEY)
+const rawStoredStatus = typeof window !== "undefined" ? localStorage.getItem(modeKey+STORED_SQUARE_STATUSES_KEY) : undefined
   if(!rawStoredStatus) {
     return undefined
   }
